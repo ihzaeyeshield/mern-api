@@ -1,0 +1,89 @@
+MMMMMMMMMMMMMMMMMMMMMMMMM
+<<<<< STANDART API >>>>>>
+^^^^^^^^^^^^^^^^^^^^^^^^^ 
+
+=============================================================================================================
+
+{root.api}/{version}/{grouping}/{endpoint}
+CONTOH :
+https://"ihza21.com/v1/auth/costumer
+https://"ihza21.com/v2/product/getAllproduct
+
+200 - OK                    --> Call API succes
+201 - CREATE                --> Post Succes
+400 - BAD REQUEST           --> Error on client side (input salah)
+401 - UNAUTHORIZED          --> User not authorized to the request
+403 - FORBIDDEN             --> User no allowed to access
+404 - NOT FOUND             --> Request endpoint no found
+500 - INTERNAL SERVER ERROR --> Error on server side
+502 - BAD GATEWAY           --> Invalid response form  another request
+
+
+GROUP : Authentication
+
+[1] - Register
+{root.api}/{version}/auth/Register
+
+req:    //request
+{
+    "name":"tes",
+    "email":"tes@gamail.com",
+    "password":"12312"
+}
+
+res:    //response
+{
+    "messege":"Register Succes",
+    "data":{
+        "id": 1,        
+        "name":"tes",
+        "email":"tes@gamail.com",
+        "password":"12312"
+    }
+}
+
+err-response;
+400 --> Input yang anda masukan tidak valid
+
+
+[2] - Login
+{root.api}/{version}/auth/login
+
+req:
+{
+    ""
+}
+
+===============================================================================================================
+
+GROUP: BLOG
+
+[1] - Create Blog Post
+[2] - Get Blog Post
+[3] - Update Blog Post
+[4] - Delete Blog Post
+
+
+
+[1] - Create Blog Post
+[POST] : {root.api}/{version}/blog/Post
+
+req:{
+    "tittle":"Tittle Blog",
+    "image":"imagefile.jpg",
+    "body":"lorem ipsum bla bla blab bla"
+}
+
+res:{
+    "post_id":1,
+    "tittle":"tittle blog",
+    "image":"imagefile.jpg",
+    "body":"lorem ipsum bla bla blab blokla",
+    "Created_at:"12/06/2020",
+    "author":{
+        "uid":1,
+        "name":"testing"
+    }
+    
+}
+
