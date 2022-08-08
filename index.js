@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const multer = require('multer')
+const path = require ('path')
+
 
 const app = express();
 const productRoutes = require('./src/routes/products');
@@ -30,6 +32,8 @@ const fileFilter=(req, file, cb)=>{
 }
 
 app.use(bodyParser.json())
+
+app.use('/images',express.static(path.join(__dirname,'images')))
 //body parser untuk memparse body dalam bentukjson
 app.use(multer({storage:fileStorage, fileFilter: fileFilter}).single('image'))
 

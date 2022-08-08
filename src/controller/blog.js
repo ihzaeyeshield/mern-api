@@ -61,3 +61,16 @@ exports.createBlog=(req,res,next)=>{
     // }
     // res.status(201).json(result)
 }
+
+exports.getAllBlogPost=(req,res,next)=>{
+    BlogPosti.find()
+    .then(result=>{
+        res.status(200).json({
+            messege: 'Data Get Blog berhasil di panggil',
+            data: result,
+        })
+    })
+    .catch(err=>{
+        next(err)
+    })
+}
