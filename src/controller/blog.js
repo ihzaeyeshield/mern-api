@@ -152,8 +152,9 @@ exports.updateBlogPost = (req,res,next)=>{
 
 exports.deleteBlogPost = (req,res,next)=>{
     const postId = req.params.postId
-
+    //mengambil id
     BlogPosti.findById(postId)
+    //mencari
     .then(post=>{
         if(!post){
             const error = new Error('blog tidak ditemukan')
@@ -161,15 +162,18 @@ exports.deleteBlogPost = (req,res,next)=>{
 
             throw error
         }
+        //eror jika tidak ditemukan
         removeimage(post.image)
+        //jika ditemukan removeimage (adalah fungsi nama dan direktori name) dengan parameter post.image(image diambil saat Blogposti.findById(postId))
         return BlogPosti.findByIdAndRemove(postId)
-        
+        //ambil atau kembalian nilai dari postid yang telah di remove imagenya
     })
     .then(result=>{
         res.status(200).json({
             messege: 'image berhasil dihapus',
             data:result,
         })
+        //data resul di hapus dengan metod di router.delete()
     })
     .catch(err=>{
         next(err)
