@@ -11,4 +11,7 @@ router.post('/createblog',[
 
 router.get('/post', blogController.getAllBlogPost)
 
+router.get('/posts/:postId', blogController.getPostById)
+///:postId adalah parameter bukan nama string
+
 module.exports = router;

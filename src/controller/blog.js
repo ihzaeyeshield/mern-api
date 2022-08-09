@@ -74,3 +74,24 @@ exports.getAllBlogPost=(req,res,next)=>{
         next(err)
     })
 }
+
+exports.getPostById = (req,res,next)=>{
+    const postId = req.params.postId
+    //req.params.postId, postId adalah parameter yang didapat dari routes yang dikirim
+    BlogPosti.findById(postId)
+    .then(result=>{
+        if(!result){
+            const error = new Error('Blog post Tidak ditemukan')
+            error.errorStatus = 404
+            throw error
+        }
+        res.status(200).json({
+            messege : "data berhasil dipanggil",
+            data: result,
+
+        })
+    })
+    .catch(err=>{
+        next(err)
+    })
+}
