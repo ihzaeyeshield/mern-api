@@ -15,4 +15,7 @@ router.get('/post/:postId', blogController.getPostById)
 ///:postId adalah parameter bukan nama string
 
 router.put('/post/:postId',blogController.updateBlogPost)
+
+router.delete('/post/:postId',blogController.deleteBlogPost)
+
 module.exports = router;
