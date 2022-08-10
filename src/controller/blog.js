@@ -2,6 +2,7 @@ const {validationResult} = require('express-validator')
 const BlogPosti = require('../models/blog')
 const path = require ('path')
 const fs = require('fs')
+//fs fileSystem
 
 exports.createBlog=(req,res,next)=>{
 
@@ -66,16 +67,46 @@ exports.createBlog=(req,res,next)=>{
 }
 
 exports.getAllBlogPost=(req,res,next)=>{
+    const currentPage = req.query.page ;
+    //query pembatasan cont halaman
+    const perPage = req.query.perPage ;
+    let totalItem;
+
     BlogPosti.find()
+    .countDocuments()
+    //fungsi hitung dokumen
+    .then(count=>{
+        totalItem = count;
+        return BlogPosti.find()
+        .skip((currentPage - 1) * perPage)
+        //fungsi skip, halaman saat ini -1 x perpage (limit page)
+        .limit(perPage);
+        //limit
+    })
     .then(result=>{
         res.status(200).json({
-            messege: 'Data Get Blog berhasil di panggil',
-            data: result,
+            messege:'data blogpost berhasil dipanggil',
+            data : result,
+            total_data: totalItem,
+            per_page : parseInt (perPage),
+            current_page : parseInt (currentPage),
         })
+        //respon yang dikirim
     })
     .catch(err=>{
-        next(err)
+        next(err);
     })
+
+    // BlogPosti.find()
+    // .then(result=>{
+    //     res.status(200).json({
+    //         messege: 'Data Get Blog berhasil di panggil',
+    //         data: result,
+    //     })
+    // })
+    // .catch(err=>{
+    //     next(err)
+    // })
 }
 
 exports.getPostById = (req,res,next)=>{
